@@ -360,3 +360,5 @@ hbarta@olive:~/Programming/Fun_with_Submodules/SM$
 ```
 
 Seems like a lot to remember here. I'm going to repeat this and use repos `MainM` and `SubM` to make sure I have it right. (Ahh... What fun!) See <https://github.com/HankB/MainM> and follow along there.
+
+No. I thought the submodule had been pushed but if it was, it has now reverted and I can't see how to fix this. It's maddening and I'm just wasting time now. I'm not going to use submodules for the intended project.
