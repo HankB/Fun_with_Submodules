@@ -260,3 +260,103 @@ Fast-forward
 hbarta@olive:~/Programming/Fun_with_Submodules/SM$ 
 ```
 
+### prepare to push
+
+```text
+hbarta@olive:~/Programming/Fun_with_Submodules$ git commit -m "another host, work in submodule"
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+        modified:   SM (new commits)
+
+no changes added to commit (use "git add" and/or "git commit -a")
+hbarta@olive:~/Programming/Fun_with_Submodules$ git commit -m "another host, work in submodule" README.md
+[main a1bbef9] another host, work in submodule
+ 1 file changed, 114 insertions(+)
+hbarta@olive:~/Programming/Fun_with_Submodules$ git submodule update --remote --merge
+Already up to date.
+Submodule path 'SM': merged in '112e4d064a390929cceef92c18a990bff8abd16d'
+hbarta@olive:~/Programming/Fun_with_Submodules$ git diff
+diff --git a/README.md b/README.md
+index 306a956..d2a6692 100644
+--- a/README.md
++++ b/README.md
+@@ -260,3 +260,5 @@ Fast-forward
+ hbarta@olive:~/Programming/Fun_with_Submodules/SM$ 
+ ```
+ 
++### prepare to push
++
+diff --git a/SM b/SM
+index 112e4d0..376af78 160000
+--- a/SM
++++ b/SM
+@@ -1 +1 @@
+-Subproject commit 112e4d064a390929cceef92c18a990bff8abd16d
++Subproject commit 376af7875f1d0bfd91488be61f441bfad1600b06
+hbarta@olive:~/Programming/Fun_with_Submodules$ git submodule update --remote --merge
+Already up to date.
+Submodule path 'SM': merged in '112e4d064a390929cceef92c18a990bff8abd16d'
+hbarta@olive:~/Programming/Fun_with_Submodules$ git diff
+diff --git a/README.md b/README.md
+index 306a956..d2a6692 100644
+--- a/README.md
++++ b/README.md
+@@ -260,3 +260,5 @@ Fast-forward
+ hbarta@olive:~/Programming/Fun_with_Submodules/SM$ 
+ ```
+ 
++### prepare to push
++
+diff --git a/SM b/SM
+index 112e4d0..376af78 160000
+--- a/SM
++++ b/SM
+@@ -1 +1 @@
+-Subproject commit 112e4d064a390929cceef92c18a990bff8abd16d
++Subproject commit 376af7875f1d0bfd91488be61f441bfad1600b06
+hbarta@olive:~/Programming/Fun_with_Submodules$ git push --recurse-submodules=check
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 1.67 KiB | 1.67 MiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To github.com:HankB/Fun_with_Submodules.git
+   882f845..a1bbef9  main -> main
+hbarta@olive:~/Programming/Fun_with_Submodules$ cat SM/README.md 
+# SM
+
+Submodule (for https://github.com/HankB/Fun_with_Submodules)
+hbarta@olive:~/Programming/Fun_with_Submodules$ git push --recurse-submodules=on-demand
+Everything up-to-date
+hbarta@olive:~/Programming/Fun_with_Submodules$ cd SM
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git push
+Username for 'https://github.com': ^C
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ cd ..
+hbarta@olive:~/Programming/Fun_with_Submodules$ git push --recurse-submodules=on-demand
+Everything up-to-date
+hbarta@olive:~/Programming/Fun_with_Submodules$ 
+```
+
+Checking the Github repo, I see that `README.md` is ccurrent but not `SM/README.md` Can't push from `SM` w/out providing a password. :-/ This works - Yay!
+
+```text
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git push git@github.com:HankB/SM.git
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 330 bytes | 330.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:HankB/SM.git
+   112e4d0..376af78  main -> main
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ 
+```
+
+Seems like a lot to remember here. I'm going to repeat this and use repos `MainM` and `SubM` to make sure I have it right. (Ahh... What fun!) See <https://github.com/HankB/MainM> and follow along there.
