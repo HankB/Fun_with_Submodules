@@ -83,6 +83,9 @@ git config submodule.SM.url git@github.com:HankB/SM.git
 git diff --cached SM
 git diff --cached --submodule
 git commit -am 'Add SM module'
+git submodule update --remote SM
+git status
+git push
 ```
 
 ```text
@@ -122,4 +125,24 @@ index e69de29..9464223 100644
 +       url = https://github.com/HankB/SM.git
 Submodule SM 0000000...112e4d0 (new submodule)
 hbarta@rocinante:~/Programming/Fun_with_Submodules$ 
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git submodule update --remote SM
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git push
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 1006 bytes | 1006.00 KiB/s, done.
+Total 6 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To github.com:HankB/Fun_with_Submodules.git
+   019af42..42f838c  main -> main
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ 
 ```
+
+Seems good.
