@@ -1,5 +1,9 @@
 # Fun_with_Submodules
 
+## 2025-03-20 Status
+
+I can't see how to push the submodule using the SSH URL and cannot log in to use the HTTP URL. Things described in the docs seem not to be working so I'm giving up on Submodules for now.
+
 Play with git submodules.
 
 ## 2025-03-19 Motivation
