@@ -9,6 +9,10 @@ I tried using git submodules on a *real* and quickly learned I need to learn a b
 * <https://git-scm.com/book/en/v2/Git-Tools-Submodules> The docs.
 * <https://github.com/HankB/SM> A submodule
 
+## 2025-03-19 module + submodule
+
+Adding a submodule to this project and playing with it.
+
 ```text
 git submodule add git@github.com:HankB/SM.git # Note: "clone" URL, not "repo" URL
 
@@ -146,3 +150,113 @@ hbarta@rocinante:~/Programming/Fun_with_Submodules$
 ```
 
 Seems good.
+
+## 2025-03-20 another host
+
+```text
+hbarta@olive:~/Programming$ git clone --recurse-submodules git@github.com:HankB/Fun_with_Submodules.git
+Cloning into 'Fun_with_Submodules'...
+remote: Enumerating objects: 22, done.
+remote: Counting objects: 100% (22/22), done.
+remote: Compressing objects: 100% (16/16), done.
+remote: Total 22 (delta 6), reused 16 (delta 4), pack-reused 0 (from 0)
+Receiving objects: 100% (22/22), 4.86 KiB | 4.86 MiB/s, done.
+Resolving deltas: 100% (6/6), done.
+Submodule 'SM' (https://github.com/HankB/SM.git) registered for path 'SM'
+Cloning into '/home/hbarta/Programming/Fun_with_Submodules/SM'...
+remote: Enumerating objects: 4, done.        
+remote: Counting objects: 100% (4/4), done.        
+remote: Compressing objects: 100% (4/4), done.        
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)        
+Receiving objects: 100% (4/4), done.
+Submodule path 'SM': checked out '112e4d064a390929cceef92c18a990bff8abd16d'
+hbarta@olive:~/Programming$ cd Fun_with_Submodules
+hbarta@olive:~/Programming/Fun_with_Submodules$ tree
+.
+├── LICENSE
+├── README.md
+└── SM
+    ├── LICENSE
+    └── README.md
+
+2 directories, 4 files
+hbarta@olive:~/Programming/Fun_with_Submodules$ code -n .
+hbarta@olive:~/Programming/Fun_with_Submodules$ 
+```
+
+Now to "fix" the URL so I can edit and (easily) push `SM`.
+
+```text
+barta@olive:~/Programming/Fun_with_Submodules$ cd SM
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git remote -v
+origin  https://github.com/HankB/SM.git (fetch)
+origin  https://github.com/HankB/SM.git (push)
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git config submodule.SM.url git@github.com:HankB/SM.git
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git remote -v
+origin  https://github.com/HankB/SM.git (fetch)
+origin  https://github.com/HankB/SM.git (push)
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ cd ..
+hbarta@olive:~/Programming/Fun_with_Submodules$ git config submodule.SM.url git@github.com:HankB/SM.git
+hbarta@olive:~/Programming/Fun_with_Submodules$ cd SM
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git remote -v
+origin  https://github.com/HankB/SM.git (fetch)
+origin  https://github.com/HankB/SM.git (push)
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ cat ../.git/config
+[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = false
+        logallrefupdates = true
+[submodule]
+        active = .
+[remote "origin"]
+        url = git@github.com:HankB/Fun_with_Submodules.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+        remote = origin
+        merge = refs/heads/main
+        vscode-merge-base = origin/main
+[submodule "SM"]
+        url = git@github.com:HankB/SM.git
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ 
+```
+
+We'll see when I try to commit `SM`. Add a blank line between the page title and first line in `SM/README.md`. Commit (and read the section aboiut working in the submodule before pushing.)
+
+```text
+git config status.submodulesummary 1
+```
+## 2025-03-20 Working on a Submodule
+
+> Git would get the changes and update the files in the subdirectory but will leave the sub-repository in what’s called a “detached HEAD” state. This means that there is no local working branch (like master, for example) tracking changes. With no working branch tracking changes, that means even if you commit changes to the submodule, *those changes will quite possibly be lost* the next time you run git submodule update.
+
+I don't like the sound of that. Reading on...
+
+```text
+hbarta@olive:~/Programming/Fun_with_Submodules$ cd SM
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git branch
+* (HEAD detached from 112e4d0)
+  main
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git checkout main
+Warning: you are leaving 1 commit behind, not connected to
+any of your branches:
+
+  376af78 formatting
+
+If you want to keep it by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 376af78
+
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git branch
+* main
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ git merge 376af78
+Updating 112e4d0..376af78
+Fast-forward
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
+hbarta@olive:~/Programming/Fun_with_Submodules/SM$ 
+```
+
