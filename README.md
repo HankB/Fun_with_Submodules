@@ -74,3 +74,52 @@ hbarta@rocinante:~/Programming/Fun_with_Submodules$ rm -rf .git/modules/SM
 hbarta@rocinante:~/Programming/Fun_with_Submodules$ git config remove-section submodule.SM
 hbarta@rocinante:~/Programming/Fun_with_Submodules$ 
 ```
+
+Let's try this again.
+
+```text
+git submodule add https://github.com/HankB/SM.git
+git config submodule.SM.url git@github.com:HankB/SM.git
+git diff --cached SM
+git diff --cached --submodule
+git commit -am 'Add SM module'
+```
+
+```text
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git submodule add https://github.com/HankB/SM.git
+Cloning into '/home/hbarta/Programming/Fun_with_Submodules/SM'...
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (4/4), done.
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ tree
+.
+├── LICENSE
+├── README.md
+└── SM
+    ├── LICENSE
+    └── README.md
+
+2 directories, 4 files
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git config submodule.SM.url git@github.com:HankB/SM.git
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git diff --cached SM
+diff --git a/SM b/SM
+new file mode 160000
+index 0000000..112e4d0
+--- /dev/null
++++ b/SM
+@@ -0,0 +1 @@
++Subproject commit 112e4d064a390929cceef92c18a990bff8abd16d
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git diff --cached --submodule
+diff --git a/.gitmodules b/.gitmodules
+index e69de29..9464223 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -0,0 +1,3 @@
++[submodule "SM"]
++       path = SM
++       url = https://github.com/HankB/SM.git
+Submodule SM 0000000...112e4d0 (new submodule)
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ 
+```
