@@ -1,0 +1,3 @@
+[submodule "SM"]
+	path = SM
+	url = https://github.com/HankB/SM.git
