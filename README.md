@@ -55,3 +55,22 @@ Shoot. Already messed up.
 
 > Since the URL in the .gitmodules file is what other people will first try to clone/fetch from, make sure to use a URL that they can access if possible. For example, if you use a different URL to push to than others would to pull from, use the one that others have access to. You can overwrite this value locally with git config submodule.DbConnector.url PRIVATE_URL for your own use. When applicable, a relative URL can be helpful.
 
+Try to "unhitch" the module and reconnect it using the public `pull` URL.
+
+```text
+git rm SM
+rm -rf .git/modules/SM
+git config remove-section submodule.SM
+```
+
+```text
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git rm SM
+error: the following file has changes staged in the index:
+    SM
+(use --cached to keep the file, or -f to force removal)
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git rm -f SM
+rm 'SM'
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ rm -rf .git/modules/SM
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ git config remove-section submodule.SM
+hbarta@rocinante:~/Programming/Fun_with_Submodules$ 
+```
